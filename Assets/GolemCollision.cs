@@ -1,13 +1,16 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class GolemCollision : MonoBehaviour
 {
-    public GameObject messagePanel;
-    public TextMeshProUGUI messageText;
+    [SerializeField] private GameObject messagePanel;
+    [SerializeField] private TextMeshProUGUI messageText;
 
-    public string damageMessage = "Damage dealt to Golem: -1% HP";
-    public float displayTime = 2f;
+    [SerializeField] private string damageMessage = "Damage dealt to Golem: -1% HP";
+    [SerializeField] private float displayTime = 2f;
+
+    private Coroutine hideCoroutine;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -17,13 +20,18 @@ public class GolemCollision : MonoBehaviour
             {
                 messagePanel.SetActive(true);
                 messageText.text = damageMessage;
-                Invoke(nameof(HideMessage), displayTime);
+
+                if (hideCoroutine != null)
+                    StopCoroutine(hideCoroutine);
+
+                hideCoroutine = StartCoroutine(HideMessageAfterSeconds(displayTime));
             }
         }
     }
 
-    private void HideMessage()
+    private IEnumerator HideMessageAfterSeconds(float seconds)
     {
+        yield return new WaitForSeconds(seconds);
         if (messagePanel != null)
             messagePanel.SetActive(false);
     }

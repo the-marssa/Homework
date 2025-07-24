@@ -1865,3 +1865,6 @@ Assets/RoloArt/Ren/Textures/T_Ren_Top.png.meta
 Assets/RoloArt/Ren/Textures/T_Ren_Top_OutlineMask.png
 Assets/RoloArt/Ren/Textures/T_Ren_Top_OutlineMask.png.meta
 ProjectSettings/lilToonSetting.json
+*.meta
+*.mat
+Assets/
